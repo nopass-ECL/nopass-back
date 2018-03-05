@@ -3,9 +3,12 @@ const path = require('path');
 const express = require('express');
 const config = require('./config');
 
+const BodyParser = require('body-parser');
+
 const app = express();
 const server = require('http').Server(app);
 
+app.use(BodyParser.json())
 app.use('/api', require('./api'));
 
 app.get('/*', (req, res) => {
