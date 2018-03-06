@@ -5,3 +5,4 @@
 - mongoDB permettra de gérer l'expiration des _challenges_ (_time-to-live_)
 - Ajouter une route pour fournir la clé publique
 - Pistes d'amélioration : gérer l'ajout d'une clé publique __supplémentaire__
+- Piste d'amélioration : Redis
