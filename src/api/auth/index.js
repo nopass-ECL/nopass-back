@@ -2,9 +2,6 @@ const {Router} = require('express');
 
 const router = new Router();
 
-const BodyParser = require('body-parser');
-
-
 let dictTest = {};
 router.get('/', (req, res) => res.send('auth test'));
 
