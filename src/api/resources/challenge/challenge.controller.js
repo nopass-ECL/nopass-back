@@ -20,6 +20,9 @@ module.exports.get = (id) => {
   })
 };
 
+module.exports.getAll = (id) => {
+  return Challenge.find({})
+};
 module.exports.getAll = () => Challenge.find({});
 
 module.exports.save = (challenge) => {

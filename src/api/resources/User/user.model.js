@@ -6,6 +6,10 @@ const UserSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  publicKey: {
+    type: String,
+    required: true,
+  },
   creationTime: {
     type: Date,
     default: () => Date.now(),
