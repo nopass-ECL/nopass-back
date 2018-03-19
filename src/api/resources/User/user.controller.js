@@ -21,7 +21,7 @@ module.exports.findUserByName = (req, res) => {
 };
 
 module.exports.getUserById = getUserById;
-module.exports.updateChallenge = (req, res) => {
+module.exports.updateChallengeReq = (req, res) => {
   updateChallenge(req.params.name, req.params.value)
     .then(challenge => res.send(challenge))
     .catch(err => res.status(500).send({error: err}))
@@ -30,8 +30,8 @@ module.exports.updateChallenge = (req, res) => {
 const updateChallenge = async (username, challengeValue) => {
   try {
     const user = await getUserByName(username);
-    const oldChallenge = await getChallengeOfUser(user).catch(err => console.error(`toto :${err}`));
-    const newChallenge = await Challenge.create(challengeValue).catch(err => console.error(`toto1 :${err}`));
+    const oldChallenge = await getChallengeOfUser(user).catch(err => console.error(`oldChallengeError :${err}`));
+    const newChallenge = await Challenge.create(challengeValue).catch(err => console.error(`newChallengeError :${err}`));
     await Challenge.save(newChallenge).catch(err => console.log('saveError' + err));
     await User.findOneAndUpdate({name: username}, {challenge: newChallenge._id});
     if (oldChallenge)
@@ -41,15 +41,16 @@ const updateChallenge = async (username, challengeValue) => {
     throw error
   }
 };
+module.exports.updateChallenge = updateChallenge
 
 module.exports.getChallengeOfUser = (user) => {
-  return Challenge.get(user.challenge)
+  return getChallengeOfUser(user)
 };
 
 const getChallengeOfUser = async (user) => {
   return new Promise((async (resolve, reject) => {
-      const challenge = await Challenge.get(user.challenge);
-      if (challenge) {
+      const challenge = await Challenge.get(user.challenge)
+    if (challenge) {
         resolve(challenge)
       } else {
         reject()
