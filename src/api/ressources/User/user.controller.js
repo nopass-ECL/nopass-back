@@ -41,7 +41,6 @@ const updateChallenge = async (username, challengeValue) => {
   }
 };
 
-
 module.exports.getChallengeOfUser = (user) => {
   return Challenge.get(user.challenge)
 };

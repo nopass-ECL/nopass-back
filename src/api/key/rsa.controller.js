@@ -1,6 +1,6 @@
 const RSA = require('node-rsa');
 
-const config = require('../../config/rsaj');
+const config = require('../../config/rsa');
 const key = new RSA(config.priv, 'pkcs1-private');
 
 const encrypt = (message) => {
@@ -30,7 +30,7 @@ module.exports.getPub = (req, res) => {
 };
 
 const encryptWithUserPubKey = (message, key) => {
-  const userKey = new RSA()
+  const userKey = new RSA();
   userKey.importKey(key, 'pkcs8-public');
   const cypher = userKey.encrypt(message, 'base64');
   return cypher

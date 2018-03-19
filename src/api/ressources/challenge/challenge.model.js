@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('../../../config/challenge');
+
 const ChallengeSchema = new mongoose.Schema({
   value: {
     type: String,

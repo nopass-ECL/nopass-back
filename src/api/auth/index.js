@@ -6,10 +6,10 @@ let dictTest = {};
 router.get('/', (req, res) => res.send('auth test'));
 
 router.get('/rsa', (req, res) => {
-  res.status(201).send()
-})
+  res.status(201).send();
+});
 
-router.post('test')
+router.post('test');
 router.get('/test', (req, res) => {
   res.send("res : " + (dictTest['TEST']))
 });
