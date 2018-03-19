@@ -5,21 +5,22 @@ const key = new RSA(config.priv, 'pkcs1-private');
 
 const encrypt = (message) => {
   const cypher = key.encrypt(message, 'base64');
-  console.log(cypher);
   return cypher
 };
+module.exports.encrypt = encrypt;
 
 const decrypt = (cypher) => {
   return key.decrypt(cypher, 'utf-8')
 };
+module.exports.decrypt = decrypt;
 
-module.exports.encrypt = (req, res) => {
+module.exports.encryptReq = (req, res) => {
   const message = req.body.message;
   const cypher = encrypt(message);
   res.send({cypher})
 };
 
-module.exports.decrypt = (req, res) => {
+module.exports.decryptReq = (req, res) => {
   const cypher = req.body.cypher;
   const message = decrypt(cypher);
   res.send({message})
@@ -35,21 +36,23 @@ const encryptWithUserPubKey = (message, key) => {
   const cypher = userKey.encrypt(message, 'base64');
   return cypher
 };
+module.exports.encryptWithUserPubKey = encryptWithUserPubKey;
 
-const decryptWIthUserPrivKey = (cypher, key) => {
+const decryptWithUserPrivKey = (cypher, key) => {
   const userKey = new RSA(key, 'pkcs1-private');
   const message = userKey.decrypt(cypher, 'utf-8');
   return message
 };
+module.exports.decryptWithUserPrivKey = decryptWithUserPrivKey;
 
-module.exports.decryptWithUserKey = (req, res) => {
+module.exports.decryptWithUserKeyReq = (req, res) => {
   const cypher = req.body.cypher;
   const key = req.body.key;
-  const message = decryptWIthUserPrivKey(cypher, key)
+  const message = decryptWithUserPrivKey(cypher, key);
   res.send({message})
 };
 
-module.exports.encryptWithUserKey = (req, res) => {
+module.exports.encryptWithUserKeyReq = (req, res) => {
   const message = req.body.message;
   const key = req.body.key;
   const cypher = encryptWithUserPubKey(message, key);

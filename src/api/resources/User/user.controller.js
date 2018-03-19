@@ -4,6 +4,7 @@ const getUsers = () => User.find({});
 const getUserById = userId => User.findOne({_id: userId});
 
 const getUserByName = userName => User.findOne({name: userName});
+module.exports.getUserByName = getUserByName;
 
 module.exports.findUserByName = (req, res) => {
   getUserByName(req.params.name)

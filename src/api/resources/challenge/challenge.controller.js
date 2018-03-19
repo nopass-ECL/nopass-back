@@ -4,7 +4,6 @@ module.exports.create = (value) => {
   const challenge = new Challenge({
     value,
   });
-  console.log(`challenge: ${challenge}`);
   return new Promise(async (resolve, reject) => {
     try {
       resolve(await challenge.save())
