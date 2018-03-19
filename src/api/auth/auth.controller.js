@@ -3,7 +3,6 @@ const rsa = require('../key/rsa.controller');
 const servPubKey = require('../../config/rsaj').pub;
 
 const userController = require('../resources/User/user.controller');
-const challengeController = require('../resources/challenge/challenge.controller');
 
 module.exports.generateChallenge = (req, res) => {
   const {username} = req.query;
