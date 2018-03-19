@@ -29,8 +29,8 @@ module.exports.updateChallenge = (req, res) => {
 const updateChallenge = async (username, challengeValue) => {
   try {
     const user = await getUserByName(username);
-    const oldChallenge = await getChallengeOfUser(user).catch(err => console.log(`toto :${err}`));
-    const newChallenge = await Challenge.create(challengeValue).catch(err => console.log(`toto1 :${err}`));
+    const oldChallenge = await getChallengeOfUser(user).catch(err => console.error(`toto :${err}`));
+    const newChallenge = await Challenge.create(challengeValue).catch(err => console.error(`toto1 :${err}`));
     await Challenge.save(newChallenge).catch(err => console.log('saveError' + err));
     await User.findOneAndUpdate({name: username}, {challenge: newChallenge._id});
     if (oldChallenge)
