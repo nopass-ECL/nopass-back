@@ -9,6 +9,9 @@ const app = express();
 const server = require('http').Server(app);
 
 require('./config/mongoose');
+app.use(function (req, res, next) {
+  setTimeout(next, 500)
+});
 app.use(BodyParser.json());
 app.use('/api', require('./api'));
 

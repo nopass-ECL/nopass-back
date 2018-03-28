@@ -1,6 +1,7 @@
 const RSA = require('node-rsa');
 
 const config = require('../../config/rsaj');
+console.log(config.priv);
 const key = new RSA(config.priv, 'pkcs1-private');
 
 const encrypt = (message) => {

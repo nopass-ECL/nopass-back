@@ -36,11 +36,7 @@ module.exports.verifyChallenge = (req, res) => {
   const {username} = req.query;
   const {challenge} = req.body;
   verifyChallenge(username, challenge).then(isChallengeValid => {
-    if (isChallengeValid) {
-      res.send({res: 'true'})
-    } else {
-      res.send(isChallengeValid)
-    }
+    res.send({res: isChallengeValid})
   })
     .catch(err => {
       if (err === 'USER_NOT_FOUND') {

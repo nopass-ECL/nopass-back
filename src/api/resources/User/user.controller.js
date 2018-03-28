@@ -41,7 +41,7 @@ const updateChallenge = async (username, challengeValue) => {
     throw error
   }
 };
-module.exports.updateChallenge = updateChallenge
+module.exports.updateChallenge = updateChallenge;
 
 module.exports.getChallengeOfUser = (user) => {
   return getChallengeOfUser(user)
@@ -49,8 +49,8 @@ module.exports.getChallengeOfUser = (user) => {
 
 const getChallengeOfUser = async (user) => {
   return new Promise((async (resolve, reject) => {
-      const challenge = await Challenge.get(user.challenge)
-    if (challenge) {
+      const challenge = await Challenge.get(user.challenge);
+      if (challenge) {
         resolve(challenge)
       } else {
         reject()

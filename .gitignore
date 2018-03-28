@@ -60,3 +60,5 @@ typings/
 .idea
 
 key
+
+src/start.sh
