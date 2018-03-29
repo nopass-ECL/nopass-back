@@ -8,5 +8,5 @@ router.get('/', controller.getAll);
 router.get('/:name', controller.findUserByName);
 router.delete('/:id', controller.delete);
 router.post('/', controller.create);
-router.post('/:name/challenge/:value', controller.updateChallenge);
+// router.post('/:name/challenge/:value', controller.updateChallenge);
 module.exports = router;

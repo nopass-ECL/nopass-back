@@ -3,26 +3,35 @@ const Challenge = require('../challenge/challenge.controller');
 const getUsers = () => User.find({});
 const getUserById = userId => User.findOne({_id: userId});
 
-const getUserByName = userName => User.findOne({name: userName});
+const getUserByName = userName => User.findOne(/*{name: userName}*/
+  {
+    $text: {
+      $search: userName,
+      $diacriticSensitive: false,
+    },
+  });
 module.exports.getUserByName = getUserByName;
 
 module.exports.findUserByName = (req, res) => {
+  console.log(req.params.name)
   getUserByName(req.params.name)
     .then((user) => {
-      if (!user) {
-        res.status(404).send({
-          code: 'USER_NOT_FOUND',
-          message: `L\'utilisateur ${req.params.name} n\' pas pu être trouvé`,
-        })
-      } else {
-        res.send(user)
-      }
+      console.log(user)
+      res.status(200).json({res: !!user})
+      // if (!user) {
+      //   res.status(404).send({
+      //     code: 'USER_NOT_FOUND',
+      //     message: `L\'utilisateur ${req.params.name} n\' pas pu être trouvé`,
+      //   })
+      // } else {
+      //   res.send(user)
+      // }
     })
 };
 
 module.exports.getUserById = getUserById;
 module.exports.updateChallengeReq = (req, res) => {
-  updateChallenge(req.params.name, req.params.value)
+  updateChallenge(req.params.name.toLowerCase(), req.params.value)
     .then(challenge => res.send(challenge))
     .catch(err => res.status(500).send({error: err}))
 };
