@@ -1,7 +1,7 @@
 const uuidv4 = require('uuid/v4');
 const rsa = require('../key/rsa.controller');
 const servPubKey = require('../../config/rsaj').pub;
-
+const {hashUuid, compareUuid} = require('../resources/challenge/challenge.controller')
 const userController = require('../resources/User/user.controller');
 
 module.exports.generateChallenge = (req, res) => {
@@ -28,7 +28,7 @@ const generateChallenge = async username => {
     const {publicKey} = user;
     const randomValue = uuidv4();
     const challenge = await userController.updateChallenge(username, randomValue);
-    return rsa.encryptWithUserPubKey(challenge.value, publicKey);
+    return rsa.encryptWithUserPubKey(randomValue, publicKey);
   }
 };
 
@@ -58,7 +58,8 @@ const verifyChallenge = async (username, challenge) => {
   try {
     const decryptedChallenge = rsa.decrypt(challenge);
     const localChallenge = await userController.getChallengeOfUser(user);
-    return localChallenge.value === decryptedChallenge;
+    return compareUuid(decryptedChallenge, localChallenge.hash);
+    // localChallenge.value === decryptedChallenge;
   } catch (err) {
     console.log(err);
     throw err

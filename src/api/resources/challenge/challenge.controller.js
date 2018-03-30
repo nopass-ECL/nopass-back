@@ -1,8 +1,11 @@
 const Challenge = require('./challenge.model').Challenge;
+const bcrypt = require('bcrypt');
 
-module.exports.create = (value) => {
+const saltRounds = 10;
+module.exports.create = async (uuid) => {
+  const hash = await hashUuid(uuid)
   const challenge = new Challenge({
-    value,
+    hash,
   });
   return new Promise(async (resolve, reject) => {
     try {
@@ -13,11 +16,13 @@ module.exports.create = (value) => {
   })
 };
 
-module.exports.get = (id) => {
+const get = async (id) => {
   return Challenge.findOne({
     _id: id
   })
 };
+
+module.exports.get = get;
 
 module.exports.getAll = (id) => {
   return Challenge.find({})
@@ -33,3 +38,11 @@ module.exports.delete = (id) => {
     _id: id
   })
 };
+
+const hashUuid = async (uuid) => {
+  return bcrypt.hash(uuid, saltRounds)
+};
+
+module.exports.compareUuid = async (uuid, storedChallenge) => {
+  return await bcrypt.compare(uuid, storedChallenge)
+}

@@ -13,19 +13,9 @@ const getUserByName = userName => User.findOne(/*{name: userName}*/
 module.exports.getUserByName = getUserByName;
 
 module.exports.findUserByName = (req, res) => {
-  console.log(req.params.name)
   getUserByName(req.params.name)
     .then((user) => {
-      console.log(user)
       res.status(200).json({res: !!user})
-      // if (!user) {
-      //   res.status(404).send({
-      //     code: 'USER_NOT_FOUND',
-      //     message: `L\'utilisateur ${req.params.name} n\' pas pu être trouvé`,
-      //   })
-      // } else {
-      //   res.send(user)
-      // }
     })
 };
 
